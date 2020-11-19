@@ -1,6 +1,6 @@
 package com.sandrasysi.site.services;
 
-import com.sandrasysi.site.models.User;
+import com.sandrasysi.site.modules.User;
 import com.sandrasysi.site.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
