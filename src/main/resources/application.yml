@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/susi
+    platform: postgres
+    username: postgres
+    password: root
+    initialization-mode: always
+    data: "classpath*:db/db.sql"
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+client-hosting: http://localhost:4200
