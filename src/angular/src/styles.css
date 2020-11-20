@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: Adamina;
+  src: url('assets/fonts/Adamina-Regular.ttf');
+  font-weight: 400;
+  font-display: swap
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-Light.ttf');
+  font-weight: 300;
+  font-display: swap
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-Regular.ttf');
+  font-weight: 400;
+  font-display: swap
+}
