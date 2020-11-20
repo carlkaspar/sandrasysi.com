@@ -1,1 +1,18 @@
-<p>login works!</p>
+<div class="loggin-container">
+
+  <p>Logi sisse!</p>
+
+  <form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
+
+    <input formControlName="username" placeholder="Kasutajanimi..." required>
+    <input formControlName="password" type="password" placeholder="Salasõna..." required>
+
+
+    <button mat-raised-button>Login!</button>
+  </form>
+
+  <p class="alert alert-error"
+     *ngIf="!isLoggedIn">
+    {{ errorMessage }}
+  </p>
+</div>
