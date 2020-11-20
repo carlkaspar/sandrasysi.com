@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social a {
+  margin: 1rem .3rem;
+}
+
+.social img {
+  width: 1rem;
+  height: auto;
+  margin-bottom: 1rem;
+  filter: opacity(.5);
+  transition: .3;
+}
+
+.social img:hover {
+  filter: opacity(.8);
+}
+
+.footer span {
+  font-size: .5rem;
+  color: #939393;
+}

@@ -1,18 +1,17 @@
-<div class="loggin-container">
+<section id="login">
+  <div class="header-description">
+    <p>Logi sisse!</p>
+  </div>
 
-  <p>Logi sisse!</p>
-
-  <form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
-
-    <input formControlName="username" placeholder="Kasutajanimi..." required>
-    <input formControlName="password" type="password" placeholder="Salasõna..." required>
-
-
-    <button mat-raised-button>Login!</button>
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <input type="text" placeholder="Kasutajanimi" required formControlName="username">
+    <input type="password" placeholder="Salasõna" required formControlName="password">
+    <input type="submit" value="Logi sisse!">
   </form>
 
-  <p class="alert alert-error"
-     *ngIf="!isLoggedIn">
-    {{ errorMessage }}
-  </p>
-</div>
+  <div>
+    <p *ngIf="!isLoggedIn">
+      {{ errorMessage }}>
+    </p>
+  </div>
+</section>
