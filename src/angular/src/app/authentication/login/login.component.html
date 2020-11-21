@@ -1,17 +1,21 @@
-<section id="login">
-  <div class="header-description">
-    <p>Logi sisse!</p>
-  </div>
+<div class="my-container content">
+  <section id="login">
+    <div class="header-description">
+      <p>Logi sisse!</p>
+    </div>
 
-  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
-    <input type="text" placeholder="Kasutajanimi" required formControlName="username">
-    <input type="password" placeholder="Salasõna" required formControlName="password">
-    <input type="submit" value="Logi sisse!">
-  </form>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <input type="text" placeholder="Kasutajanimi" required formControlName="username">
+      <input type="password" placeholder="Salasõna" required formControlName="password">
+      <input type="submit" value="Logi sisse!">
+    </form>
 
-  <div>
-    <p *ngIf="!isLoggedIn">
-      {{ errorMessage }}>
-    </p>
-  </div>
-</section>
+    <div>
+      <p *ngIf="!isLoggedIn">
+        {{ errorMessage }}>
+      </p>
+    </div>
+  </section>
+</div>
+
+

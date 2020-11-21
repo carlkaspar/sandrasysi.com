@@ -12,6 +12,8 @@ import { HeaderComponent } from './components/shared/header/header.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { GalleryFormComponent } from './components/shared/gallery-form/gallery-form.component';
+import {NgxDropzoneModule} from "ngx-dropzone";
 
 @NgModule({
   declarations: [
@@ -22,14 +24,16 @@ import {HttpClientModule} from "@angular/common/http";
     AboutComponent,
     ContactComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    GalleryFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDropzoneModule
   ],
   providers: [],
   bootstrap: [AppComponent]
