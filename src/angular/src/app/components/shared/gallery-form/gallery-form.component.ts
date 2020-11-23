@@ -1,9 +1,6 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {GalleryService} from "../../../_services/gallery.service";
-import {catchError, map} from "rxjs/operators";
-import {HttpErrorResponse, HttpEventType} from "@angular/common/http";
-import {of} from "rxjs";
-import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-gallery-form',
@@ -19,7 +16,7 @@ export class GalleryFormComponent {
 
   galleryForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    files: new FormControl([])
+    fileArray: new FormControl([])
   });
 
   files: File[] = [];
@@ -38,10 +35,30 @@ export class GalleryFormComponent {
     }
   }
 
+  get name(): AbstractControl {
+    return this.galleryForm.get('name');
+  }
+
+  get fileArray(): AbstractControl {
+    return this.galleryForm.get('fileArray');
+  }
+
   onClick() {
-    console.log(this.galleryForm);
-    console.log(this.galleryForm.get('files').value);
-    this.galleryForm.patchValue({files: this.files});
-    console.log(this.galleryForm.get('files').value);
+    const formData = new FormData();
+
+    for(let file of this.files) {
+      console.log(file);
+      formData.append("files", file);
+    }
+
+    this.galleryService.upload(formData).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 }
+

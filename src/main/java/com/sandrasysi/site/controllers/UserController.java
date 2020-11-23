@@ -30,7 +30,7 @@ public class UserController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<LoginResponseDto> createAuthenticationToken(@RequestBody LoginRequestDto loginRequestDto) {
         HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
         String responseMessage = "Vale kasutajanimi või parool!";
 

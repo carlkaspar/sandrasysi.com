@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtUtil {
-    private String SECRET_KEY = "secret";
+    private static final String SECRET_KEY = "secret";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -32,7 +32,7 @@ public class JwtUtil {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
+    private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
@@ -47,7 +47,7 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY).compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

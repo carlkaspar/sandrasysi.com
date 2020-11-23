@@ -5,12 +5,18 @@ import com.sandrasysi.site.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username).get();
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (!optionalUser.isPresent()) {
+            throw new RuntimeException("No user found!");
+        }
+        return optionalUser.get();
     }
 }

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from "@angular/common/http";
+import {HttpClient,HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {Observable} from "rxjs";
 
 const GAL_API = `${environment.apiUrl}/gallery`;
 
 const headers = new HttpHeaders()
-  .set('Content-Type', 'application/json')
   .append('Authorization', `Bearer ${localStorage.getItem("token")}`);
 
 @Injectable({
@@ -18,10 +17,9 @@ export class GalleryService {
   ) {
   }
 
-  public upload(formData) {
-    return this.httpClient.post<any>(`${GAL_API}/upload`, formData, {
-      reportProgress: true,
-      observe: 'events'
-    });
+  public upload(formData): Observable<any> {
+    return this.httpClient.post(`${GAL_API}/upload`, formData, {
+      headers: headers
+    })
   }
 }
