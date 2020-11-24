@@ -16,7 +16,7 @@ export class GalleryFormComponent {
 
   galleryForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    fileArray: new FormControl([])
+    thumbnail: new FormControl('', [Validators.required])
   });
 
   files: File[] = [];
@@ -50,6 +50,9 @@ export class GalleryFormComponent {
       console.log(file);
       formData.append("files", file);
     }
+
+    formData.append("name", this.galleryForm.value.name);
+    formData.append("thumbnail", this.galleryForm.value.thumbnail)
 
     this.galleryService.upload(formData).subscribe(
       response => {

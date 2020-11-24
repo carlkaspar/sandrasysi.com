@@ -1,6 +1,6 @@
 package com.sandrasysi.site.repositories;
 
-import com.sandrasysi.site.modules.User;
+import com.sandrasysi.site.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

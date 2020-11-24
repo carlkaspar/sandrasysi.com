@@ -1,9 +1,7 @@
 package com.sandrasysi.site.controllers;
 
 import com.sandrasysi.site.dto.GalleryUploadRequestDto;
-import com.sandrasysi.site.dto.GalleryUploadResponseDto;
 import com.sandrasysi.site.services.FileService;
-import com.sandrasysi.site.services.FileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +17,19 @@ import java.util.Map;
 public class GalleryController {
 
     @Autowired
-    private FileServiceImpl fileService;
+    private FileService fileService;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadGallery(@RequestParam(required = false) MultipartFile[] files) {
+    public ResponseEntity<?> uploadGallery(@RequestParam(value = "files", required = false) MultipartFile[] files,
+                                           @RequestParam(value = "name") String name,
+                                           @RequestParam(value = "thumbnail") String thumbnailImageName) {
+
+        GalleryUploadRequestDto requestDto = new GalleryUploadRequestDto(name, thumbnailImageName, files);
+
         Map<String, String> response = new HashMap<>();
         try {
-            fileService.saveAll(files);
-            response.put("message", "Files added");
+            fileService.saveGallery(requestDto);
+            response.put("message", "Files added to album: " + name + "with thumbnail: " + thumbnailImageName);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.put("message", "Files not added");

@@ -1,4 +1,4 @@
-package com.sandrasysi.site.modules;
+package com.sandrasysi.site.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

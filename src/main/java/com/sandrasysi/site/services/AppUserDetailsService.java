@@ -15,7 +15,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        com.sandrasysi.site.modules.User user = userService.findByUsername(username);
+        com.sandrasysi.site.models.User user = userService.findByUsername(username);
         return new User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 

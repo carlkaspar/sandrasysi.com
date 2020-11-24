@@ -25,7 +25,9 @@
 
         <form [formGroup]="galleryForm" (ngSubmit)="onClick()">
           <input type="text" placeholder="Galerii nimi" required formControlName="name">
-
+          <select formControlName="thumbnail">
+            <option *ngFor="let f of files" value="{{f.name}}">{{f.name}}</option>
+          </select>
           <button [disabled]="isButtonDisabled" type="submit">GO!</button>
         </form>
 
