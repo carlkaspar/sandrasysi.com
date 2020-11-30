@@ -52,7 +52,7 @@ export class GalleryFormComponent {
     }
 
     formData.append("name", this.galleryForm.value.name);
-    formData.append("thumbnail", this.galleryForm.value.thumbnail)
+    formData.append("thumbnailImageName", this.galleryForm.value.thumbnail)
 
     this.galleryService.upload(formData).subscribe(
       response => {

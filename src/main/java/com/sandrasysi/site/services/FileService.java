@@ -3,8 +3,6 @@ package com.sandrasysi.site.services;
 import com.sandrasysi.site.dto.GalleryUploadRequestDto;
 import com.sandrasysi.site.models.Gallery;
 import com.sandrasysi.site.models.Image;
-import com.sandrasysi.site.repositories.ImageRepository;
-import com.sun.org.apache.xpath.internal.operations.Mult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,15 +33,20 @@ public class FileService {
 
         for (MultipartFile file: requestDto.getFiles()) {
             Path savedImagePath = saveImage(file, createdFolderPath);
-            Image image = Image.builder().name(file.getOriginalFilename()).relativePath(savedImagePath.toString()).build();
+            Image image = Image.builder()
+                    .name(file.getOriginalFilename())
+                    .relativePath(savedImagePath.toString())
+                    .build();
             listOfImageIds.add(imageService.saveImageToDatabaseAndReturnId(image));
         }
+
+
 
         Gallery gallery = Gallery.builder()
                 .name(requestDto.getName())
                 .thumbnailId(imageService.findImageByNameAndRelativePath(requestDto.getThumbnailImageName()
                         , createdFolderPath.resolve(requestDto.getThumbnailImageName()).toString()).getId())
-                .galleryImageIds(listOfImageIds.toString())
+                .galleryImageIds(listOfImageIds.toString().replace("[", "").replace("]", ""))
                 .build();
 
         galleryService.saveGalleryToDataBase(gallery);
@@ -70,5 +73,10 @@ public class FileService {
         }
 
         return galleryDirectory.toPath();
+    }
+
+    public File findFileById(Long id) {
+        Image image = imageService.findImageById(id);
+        return new File(image.getRelativePath());
     }
 }

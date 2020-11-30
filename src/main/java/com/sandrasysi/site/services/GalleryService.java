@@ -5,6 +5,9 @@ import com.sandrasysi.site.repositories.GalleryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class GalleryService {
     @Autowired
@@ -13,4 +16,17 @@ public class GalleryService {
     public void saveGalleryToDataBase(Gallery gallery){
         galleryRepository.save(gallery);
     }
+
+    public List<Gallery> findAllGalleries() {
+        return galleryRepository.findAll();
+    }
+
+    public Gallery findById(Long id) {
+        Optional<Gallery> optionalGallery = galleryRepository.findById(id);
+        if (!optionalGallery.isPresent()) {
+            throw new RuntimeException("Gallery not found!");
+        }
+        return optionalGallery.get();
+    }
+
 }

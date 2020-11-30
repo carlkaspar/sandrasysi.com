@@ -1,14 +1,23 @@
 package com.sandrasysi.site.controllers;
 
+import com.sandrasysi.site.dto.GalleryGetAllResponseDto;
 import com.sandrasysi.site.dto.GalleryUploadRequestDto;
+import com.sandrasysi.site.models.Gallery;
 import com.sandrasysi.site.services.FileService;
+import com.sandrasysi.site.services.GalleryService;
+import com.sandrasysi.site.services.ImageService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -16,13 +25,20 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class GalleryController {
 
-    @Autowired
     private FileService fileService;
+    private GalleryService galleryService;
+    private ImageService imageService;
+
+    public GalleryController(FileService fileService, GalleryService galleryService, ImageService imageService) {
+        this.fileService = fileService;
+        this.galleryService = galleryService;
+        this.imageService = imageService;
+    }
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadGallery(@RequestParam(value = "files", required = false) MultipartFile[] files,
+    public ResponseEntity<Map<String, String>> uploadGallery(@RequestParam(value = "files", required = false) MultipartFile[] files,
                                            @RequestParam(value = "name") String name,
-                                           @RequestParam(value = "thumbnail") String thumbnailImageName) {
+                                           @RequestParam(value = "thumbnailImageName") String thumbnailImageName) {
 
         GalleryUploadRequestDto requestDto = new GalleryUploadRequestDto(name, thumbnailImageName, files);
 
@@ -35,5 +51,16 @@ public class GalleryController {
             response.put("message", "Files not added");
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(response);
         }
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<List<GalleryGetAllResponseDto>> getAllGalleries() throws IOException {
+        List<Gallery> galleries = galleryService.findAllGalleries();
+        List<GalleryGetAllResponseDto> response = new ArrayList<>();
+        for (Gallery gallery: galleries) {
+            File image = fileService.findFileById(gallery.getThumbnailId());
+            response.add(new GalleryGetAllResponseDto(gallery.getId(), IOUtils.toByteArray(image.toURI())));
+        }
+        return ResponseEntity.ok(response);
     }
 }

@@ -14,6 +14,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { GalleryFormComponent } from './components/shared/gallery-form/gallery-form.component';
 import {NgxDropzoneModule} from "ngx-dropzone";
+import { PhotoGridComponent } from './components/shared/photo-grid/photo-grid.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {NgxDropzoneModule} from "ngx-dropzone";
     HeaderComponent,
     FooterComponent,
     GalleryFormComponent,
+    PhotoGridComponent,
   ],
   imports: [
     BrowserModule,
