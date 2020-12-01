@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChildren} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {GalleryService} from "../../../_services/gallery.service";
 import {Gallery} from "../../../_models/gallery/gallery";
 import {ImageService} from "../../../_services/image.service";
-import {Image} from "../../../_models/gallery/image";
 import {DomSanitizer} from "@angular/platform-browser";
+import {Router} from "@angular/router";
 
 
 
@@ -22,7 +22,8 @@ export class PhotoGridComponent implements OnInit {
     private http: HttpClient,
     private galleryService: GalleryService,
     private imageService: ImageService,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class PhotoGridComponent implements OnInit {
       }
     )
   }
+
 
 
   getImage(thumbnailImage: File): string {
@@ -50,5 +52,9 @@ export class PhotoGridComponent implements OnInit {
   imageSrcFromByteArray(thumbnailBytes: string) {
     let url = 'data:image/jpeg;base64,' + thumbnailBytes;
     return this.domSanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  goToGalleryPage(id: number) {
+    this.router.navigate(['galerii/' + id]);
   }
 }

@@ -2,7 +2,9 @@ package com.sandrasysi.site.controllers;
 
 import com.sandrasysi.site.dto.GalleryGetAllResponseDto;
 import com.sandrasysi.site.dto.GalleryUploadRequestDto;
+import com.sandrasysi.site.dto.ImageResponseDto;
 import com.sandrasysi.site.models.Gallery;
+import com.sandrasysi.site.models.Image;
 import com.sandrasysi.site.services.FileService;
 import com.sandrasysi.site.services.GalleryService;
 import com.sandrasysi.site.services.ImageService;
@@ -62,5 +64,20 @@ public class GalleryController {
             response.add(new GalleryGetAllResponseDto(gallery.getId(), IOUtils.toByteArray(image.toURI())));
         }
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/images")
+    public ResponseEntity<List<ImageResponseDto>> getImagesByGalleryId(@PathVariable(value = "id") Long id) throws IOException {
+        Gallery gallery = galleryService.findById(id);
+        List<ImageResponseDto> response = new ArrayList<>();
+
+        for (String imageId: gallery.getGalleryImageIds().split(",")) {
+            Image image = imageService.findImageById(Long.parseLong(imageId.trim()));
+            File file = fileService.findFileById(image.getId());
+            response.add(new ImageResponseDto(image.getId(), image.getName(), IOUtils.toByteArray(file.toURI())));
+        }
+
+        return ResponseEntity.ok(response);
+
     }
 }

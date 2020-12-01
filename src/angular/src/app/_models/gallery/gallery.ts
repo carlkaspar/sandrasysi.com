@@ -1,6 +1,3 @@
-import {Injectable} from "@angular/core";
-import {Image} from "./image";
-
 export class Gallery {
   public id: number;
   public thumbnailBytes: string

@@ -1,6 +1,11 @@
 <p>photo-grid works!</p>
+<div class="container">
+  <div class="content">
+    <section id="flex-photos">
+      <a *ngFor="let gallery of galleries" class="gal-item" (click)="goToGalleryPage(gallery.id)">
+        <img [src]="imageSrcFromByteArray(gallery.thumbnailBytes)">
+      </a>
+    </section>
 
-<div *ngFor="let gallery of galleries">
-  <p>{{gallery.id}}</p>
-  <img [src]="imageSrcFromByteArray(gallery.thumbnailBytes)">
+  </div>
 </div>
