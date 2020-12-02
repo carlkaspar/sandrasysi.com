@@ -47,6 +47,7 @@ public class FileService {
                 .thumbnailId(imageService.findImageByNameAndRelativePath(requestDto.getThumbnailImageName()
                         , createdFolderPath.resolve(requestDto.getThumbnailImageName()).toString()).getId())
                 .galleryImageIds(listOfImageIds.toString().replace("[", "").replace("]", ""))
+                .relativePath(createdFolderPath.toString())
                 .build();
 
         galleryService.saveGalleryToDataBase(gallery);
@@ -78,5 +79,11 @@ public class FileService {
     public File findFileById(Long id) {
         Image image = imageService.findImageById(id);
         return new File(image.getRelativePath());
+    }
+
+    public File findFileByGalleryNameAndFileName(String galleryName, String fileName) {
+        String relativePath = galleryService.findByName(galleryName).getRelativePath() + "\\" + fileName;
+        Image image = imageService.findImageByNameAndRelativePath(fileName, relativePath);
+        return findFileById(image.getId());
     }
 }

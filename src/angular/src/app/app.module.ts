@@ -16,6 +16,7 @@ import { GalleryFormComponent } from './components/shared/gallery-form/gallery-f
 import {NgxDropzoneModule} from "ngx-dropzone";
 import { PhotoGridComponent } from './components/shared/photo-grid/photo-grid.component';
 import { GalleryComponent } from './components/shared/gallery/gallery.component';
+import { ImageCropperModule } from "ngx-image-cropper";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { GalleryComponent } from './components/shared/gallery/gallery.component'
     FooterComponent,
     GalleryFormComponent,
     PhotoGridComponent,
-    GalleryComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,8 @@ import { GalleryComponent } from './components/shared/gallery/gallery.component'
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

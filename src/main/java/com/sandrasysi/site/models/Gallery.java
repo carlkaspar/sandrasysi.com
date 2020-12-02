@@ -30,4 +30,7 @@ public class Gallery {
 
     @Column(name = "gallery_img_ids")
     private String galleryImageIds;
+
+    @Column(name = "relative_path")
+    private String relativePath;
 }

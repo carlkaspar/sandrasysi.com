@@ -6,7 +6,8 @@ import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {Image} from "../_models/gallery/image";
 
-const GAL_API = `${environment.apiUrl}/gallery`
+const GAL_API = `${environment.apiUrl}/gallery`;
+const UPLOADS_API = `${environment.apiUrl}/uploads`;
 
 const headers = new HttpHeaders()
   .append('Authorization', `Bearer ${localStorage.getItem("token")}`);
@@ -27,10 +28,26 @@ export class ImageService {
       map((data: any[]) =>
         data.map(
           (item: any) =>
-            new Image(item.id, item.name, item.imageBytes)
+            new Image(item.id, item.name)
         )
       )
     )
   }
 
+  getImageByGalleryNameAndImageName(galleryName: string, imageName: string): Observable<any> {
+    const apiUrl = `${GAL_API}/getImage/${galleryName}/${imageName}`;
+    return this.http.get(apiUrl, {headers: headers});
+  }
+
+  getImagesByGalleryName(galleryName: string): Observable<any> {
+    const apiUrl = `${UPLOADS_API}/${galleryName}/getimages`;
+    return this.http.get(apiUrl).pipe(
+      map((data: any[]) =>
+        data.map(
+          (item: any) =>
+            new Image(item.id, item.name)
+        )
+      )
+    )
+  }
 }

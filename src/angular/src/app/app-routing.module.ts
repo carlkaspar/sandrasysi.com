@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: "minust", component: AboutComponent },
   { path: "kontakt", component: ContactComponent },
   { path: "login", component: LoginComponent },
-  { path: "galerii/:id", component: GalleryComponent },
-  { path: "", redirectTo: "digitaal", pathMatch: "full" },
+  { path: "galerii/:name", component: GalleryComponent },
+  { path: "", component: DigitalComponent },
   { path: "**", redirectTo: "digitaal", pathMatch: "full" }
 ];
 

@@ -1,6 +1,17 @@
-<p>gallery works!</p>
+<div class="container">
 
-<div *ngFor="let image of images">
-  <p>{{image.id}} - {{image.name}}</p>
-  <img [src]="imageSrcFromByteArray(image.imageBytes)">
+  <p>{{ galleryName }}</p>
+  <div class="content">
+
+    <div *ngFor="let image of images">
+      <img src="http://localhost:8080/uploads/{{galleryName}}/{{image.name}}">
+    </div>
+
+
+  </div>
+
+
+
+
 </div>
+

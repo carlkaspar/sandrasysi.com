@@ -29,4 +29,11 @@ public class GalleryService {
         return optionalGallery.get();
     }
 
+    public Gallery findByName(String name) {
+        Optional<Gallery> optionalGallery = galleryRepository.findByName(name);
+        if (!optionalGallery.isPresent()) {
+            throw new RuntimeException("Gallery not found!");
+        }
+        return optionalGallery.get();
+    }
 }

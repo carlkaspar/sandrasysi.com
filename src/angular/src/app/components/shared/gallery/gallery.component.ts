@@ -3,7 +3,7 @@ import {GalleryService} from "../../../_services/gallery.service";
 import {ImageService} from "../../../_services/image.service";
 import {Image} from "../../../_models/gallery/image";
 import {ActivatedRoute, Route} from "@angular/router";
-import {DomSanitizer} from "@angular/platform-browser";
+import {Gallery} from "../../../_models/gallery/gallery";
 
 @Component({
   selector: 'app-gallery',
@@ -13,30 +13,24 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class GalleryComponent implements OnInit {
 
   images: Image[] = [];
-  galleryId: number;
+  galleryName: string;
 
   constructor(
     private galleryService: GalleryService,
     private imageService: ImageService,
-    private route: ActivatedRoute,
-    private domSanitizer: DomSanitizer
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.galleryId = Number(this.route.snapshot.paramMap.get("id"));
-    this.imageService.getImagesByGalleryId(this.galleryId).subscribe(
+    this.galleryName = this.route.snapshot.paramMap.get("name");
+    this.imageService.getImagesByGalleryName(this.galleryName).subscribe(
       response => {
         this.images = response;
       },
       error => {
         console.log(error)
       }
-    )
-  }
-
-  imageSrcFromByteArray(thumbnailBytes: string) {
-    let url = 'data:image/jpeg;base64,' + thumbnailBytes;
-    return this.domSanitizer.bypassSecurityTrustUrl(url);
+    );
   }
 
 }

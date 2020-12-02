@@ -8,5 +8,4 @@ import lombok.Data;
 public class ImageResponseDto {
     private Long id;
     private String name;
-    private byte[] imageBytes;
 }

@@ -1,6 +1,7 @@
 package com.sandrasysi.site.controllers;
 
 import com.sandrasysi.site.dto.GalleryGetAllResponseDto;
+import com.sandrasysi.site.dto.GalleryGetOneResponseDto;
 import com.sandrasysi.site.dto.GalleryUploadRequestDto;
 import com.sandrasysi.site.dto.ImageResponseDto;
 import com.sandrasysi.site.models.Gallery;
@@ -61,9 +62,16 @@ public class GalleryController {
         List<GalleryGetAllResponseDto> response = new ArrayList<>();
         for (Gallery gallery: galleries) {
             File image = fileService.findFileById(gallery.getThumbnailId());
-            response.add(new GalleryGetAllResponseDto(gallery.getId(), IOUtils.toByteArray(image.toURI())));
+            response.add(new GalleryGetAllResponseDto(gallery.getId(), gallery.getName(), image.getName()));
         }
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<GalleryGetOneResponseDto> getOneById(@PathVariable(value = "id") Long id) {
+        Gallery gallery = galleryService.findById(id);
+        GalleryGetOneResponseDto responseDto = new GalleryGetOneResponseDto(gallery.getId(), gallery.getName());
+        return ResponseEntity.ok(responseDto);
     }
 
     @GetMapping("/{id}/images")
@@ -74,7 +82,7 @@ public class GalleryController {
         for (String imageId: gallery.getGalleryImageIds().split(",")) {
             Image image = imageService.findImageById(Long.parseLong(imageId.trim()));
             File file = fileService.findFileById(image.getId());
-            response.add(new ImageResponseDto(image.getId(), image.getName(), IOUtils.toByteArray(file.toURI())));
+            response.add(new ImageResponseDto(image.getId(), image.getName()));
         }
 
         return ResponseEntity.ok(response);

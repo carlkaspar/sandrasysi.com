@@ -35,19 +35,17 @@ export class GalleryService {
         map((data: any[]) =>
           data.map(
             (item: any) =>
-              new Gallery(item.id, item.thumbnailBytes)
+              new Gallery(item.id, item.name, item.thumbnailImageName)
           )
         )
       )
   }
 
-  private convertToList(galleryImageIds: string): Array<number> {
-    return galleryImageIds
-      .replace(/\s/g, "")
-      .split(',')
-      .map(function (item) {
-        return parseInt(item)
+  getGalleryById(galleryId: number): Observable<any> {
+    const url = `${GAL_API}/get/${galleryId}`;
+    return this.httpClient
+      .get(url, {
+        headers: headers
       });
   }
-
 }

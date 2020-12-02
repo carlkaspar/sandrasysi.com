@@ -38,23 +38,7 @@ export class PhotoGridComponent implements OnInit {
   }
 
 
-
-  getImage(thumbnailImage: File): string {
-    let reader = new FileReader();
-    let url = '';
-    reader.readAsDataURL(thumbnailImage);
-    reader.onload = (event) => {
-      url = <string>event.target.result;
-    }
-    return url;
-  }
-
-  imageSrcFromByteArray(thumbnailBytes: string) {
-    let url = 'data:image/jpeg;base64,' + thumbnailBytes;
-    return this.domSanitizer.bypassSecurityTrustUrl(url);
-  }
-
-  goToGalleryPage(id: number) {
-    this.router.navigate(['galerii/' + id]);
+  goToGalleryPage(galleryName: string) {
+    this.router.navigate(['galerii/' + galleryName]);
   }
 }
