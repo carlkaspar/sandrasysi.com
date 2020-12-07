@@ -5,7 +5,8 @@ import {Observable} from "rxjs";
 import {Gallery} from "../_models/gallery/gallery";
 import {map} from "rxjs/operators";
 
-const GAL_API = `${environment.apiUrl}/gallery`;
+const ADMIN_API = `${environment.apiUrl}/admin`;
+const CONTENT_API =  `${environment.apiUrl}/uploads`;
 
 const headers = new HttpHeaders()
   .append('Authorization', `Bearer ${localStorage.getItem("token")}`);
@@ -20,13 +21,13 @@ export class GalleryService {
   }
 
   public upload(formData): Observable<any> {
-    return this.httpClient.post(`${GAL_API}/upload`, formData, {
+    return this.httpClient.post(`${ADMIN_API}/gallery/upload`, formData, {
       headers: headers
     })
   }
 
   getGalleries(): Observable<any> {
-    const url = `${GAL_API}/get`
+    const url = `${CONTENT_API}/galleries`
     return this.httpClient
       .get(url, {
         headers: headers
@@ -35,17 +36,9 @@ export class GalleryService {
         map((data: any[]) =>
           data.map(
             (item: any) =>
-              new Gallery(item.id, item.name, item.thumbnailImageName)
+              new Gallery(item.id, item.name, item.thumbnailImageUrl)
           )
         )
       )
-  }
-
-  getGalleryById(galleryId: number): Observable<any> {
-    const url = `${GAL_API}/get/${galleryId}`;
-    return this.httpClient
-      .get(url, {
-        headers: headers
-      });
   }
 }

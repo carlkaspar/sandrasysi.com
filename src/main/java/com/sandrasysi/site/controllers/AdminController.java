@@ -24,21 +24,21 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/gallery")
+@RequestMapping("/admin")
 @CrossOrigin(origins = "*")
-public class GalleryController {
+public class AdminController {
 
     private FileService fileService;
     private GalleryService galleryService;
     private ImageService imageService;
 
-    public GalleryController(FileService fileService, GalleryService galleryService, ImageService imageService) {
+    public AdminController(FileService fileService, GalleryService galleryService, ImageService imageService) {
         this.fileService = fileService;
         this.galleryService = galleryService;
         this.imageService = imageService;
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/gallery/upload")
     public ResponseEntity<Map<String, String>> uploadGallery(@RequestParam(value = "files", required = false) MultipartFile[] files,
                                            @RequestParam(value = "name") String name,
                                            @RequestParam(value = "thumbnailImageName") String thumbnailImageName) {
@@ -56,36 +56,4 @@ public class GalleryController {
         }
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<List<GalleryGetAllResponseDto>> getAllGalleries() throws IOException {
-        List<Gallery> galleries = galleryService.findAllGalleries();
-        List<GalleryGetAllResponseDto> response = new ArrayList<>();
-        for (Gallery gallery: galleries) {
-            File image = fileService.findFileById(gallery.getThumbnailId());
-            response.add(new GalleryGetAllResponseDto(gallery.getId(), gallery.getName(), image.getName()));
-        }
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/get/{id}")
-    public ResponseEntity<GalleryGetOneResponseDto> getOneById(@PathVariable(value = "id") Long id) {
-        Gallery gallery = galleryService.findById(id);
-        GalleryGetOneResponseDto responseDto = new GalleryGetOneResponseDto(gallery.getId(), gallery.getName());
-        return ResponseEntity.ok(responseDto);
-    }
-
-    @GetMapping("/{id}/images")
-    public ResponseEntity<List<ImageResponseDto>> getImagesByGalleryId(@PathVariable(value = "id") Long id) throws IOException {
-        Gallery gallery = galleryService.findById(id);
-        List<ImageResponseDto> response = new ArrayList<>();
-
-        for (String imageId: gallery.getGalleryImageIds().split(",")) {
-            Image image = imageService.findImageById(Long.parseLong(imageId.trim()));
-            File file = fileService.findFileById(image.getId());
-            response.add(new ImageResponseDto(image.getId(), image.getName()));
-        }
-
-        return ResponseEntity.ok(response);
-
-    }
 }

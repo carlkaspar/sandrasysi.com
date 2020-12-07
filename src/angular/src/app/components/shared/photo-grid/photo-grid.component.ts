@@ -1,10 +1,15 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChildren} from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {GalleryService} from "../../../_services/gallery.service";
 import {Gallery} from "../../../_models/gallery/gallery";
 import {ImageService} from "../../../_services/image.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {Router} from "@angular/router";
+import {DomService} from "../../../_services/dom.service";
+import {IMasonryGalleryImage} from "ngx-masonry-gallery";
 
 
 
@@ -15,7 +20,10 @@ import {Router} from "@angular/router";
 })
 export class PhotoGridComponent implements OnInit {
 
+
+
   galleries: Gallery[] = [];
+
 
 
   constructor(
@@ -23,7 +31,8 @@ export class PhotoGridComponent implements OnInit {
     private galleryService: GalleryService,
     private imageService: ImageService,
     private domSanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private domService: DomService
   ) { }
 
   ngOnInit(): void {
@@ -32,13 +41,15 @@ export class PhotoGridComponent implements OnInit {
         this.galleries = response;
       },
       error => {
-        console.log(error)
+        console.log(error);
       }
     )
   }
 
 
+
   goToGalleryPage(galleryName: string) {
     this.router.navigate(['galerii/' + galleryName]);
   }
+
 }

@@ -11,5 +11,5 @@ import java.io.File;
 public class GalleryGetAllResponseDto {
     private Long id;
     private String name;
-    private String thumbnailImageName;
+    private String thumbnailImageUrl;
 }

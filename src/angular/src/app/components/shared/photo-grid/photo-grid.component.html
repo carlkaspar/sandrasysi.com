@@ -1,10 +1,14 @@
 <div class="container">
-  <div class="content">
-    <section id="flex-photos">
-      <a *ngFor="let gallery of galleries" class="gal-item" (click)="goToGalleryPage(gallery.name)">
-        <img src="http://localhost:8080/uploads/{{gallery.name}}/{{gallery.thumbnailImageName}}">
-      </a>
-    </section>
 
-  </div>
+    <ngx-masonry [options]="{ gutter: 5 }" [ordered]="true">
+
+      <div ngxMasonryItem class="masonry-item" *ngFor="let gallery of galleries">
+        <a (click)="goToGalleryPage(gallery.name)">
+          <img [src]="gallery.thumbnailImageUrl">
+        </a>
+      </div>
+
+    </ngx-masonry>
+
+
 </div>

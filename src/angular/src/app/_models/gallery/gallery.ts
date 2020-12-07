@@ -1,11 +1,11 @@
 export class Gallery {
   public id: number;
-  public thumbnailImageName: string;
+  public thumbnailImageUrl: string;
   public name: string;
 
-  constructor(id, name, thumbnailImageName?) {
+  constructor(id, name, thumbnailImageUrl?) {
     this.id = id;
-    this.thumbnailImageName = thumbnailImageName;
+    this.thumbnailImageUrl = thumbnailImageUrl;
     this.name = name;
   }
 }

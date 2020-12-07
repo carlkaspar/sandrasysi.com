@@ -17,6 +17,9 @@ import {NgxDropzoneModule} from "ngx-dropzone";
 import { PhotoGridComponent } from './components/shared/photo-grid/photo-grid.component';
 import { GalleryComponent } from './components/shared/gallery/gallery.component';
 import { ImageCropperModule } from "ngx-image-cropper";
+import {MasonryGalleryModule} from "ngx-masonry-gallery";
+import {NgxMasonryModule} from "ngx-masonry";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -32,15 +35,17 @@ import { ImageCropperModule } from "ngx-image-cropper";
     PhotoGridComponent,
     GalleryComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    NgxDropzoneModule,
-    ImageCropperModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientModule,
+        NgxDropzoneModule,
+        ImageCropperModule,
+        NgxMasonryModule,
+        BrowserAnimationsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

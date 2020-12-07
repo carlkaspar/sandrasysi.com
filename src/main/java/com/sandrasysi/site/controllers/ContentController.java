@@ -1,5 +1,6 @@
 package com.sandrasysi.site.controllers;
 
+import com.sandrasysi.site.dto.GalleryGetAllResponseDto;
 import com.sandrasysi.site.dto.ImageResponseDto;
 import com.sandrasysi.site.models.Gallery;
 import com.sandrasysi.site.models.Image;
@@ -19,13 +20,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/uploads")
 @CrossOrigin(origins = "*")
-public class UploadsController {
+public class ContentController {
 
     private FileService fileService;
     private GalleryService galleryService;
     private ImageService imageService;
 
-    public UploadsController(FileService fileService, GalleryService galleryService, ImageService imageService) {
+    public ContentController(FileService fileService, GalleryService galleryService, ImageService imageService) {
         this.fileService = fileService;
         this.galleryService = galleryService;
         this.imageService = imageService;
@@ -33,14 +34,14 @@ public class UploadsController {
 
 
     @GetMapping("/{galleryName}/{fileName}")
-    public ResponseEntity<byte[]> getImageByGalleryNameAndImageNameAsResourse(@PathVariable String galleryName,
+    public ResponseEntity<byte[]> getImageByGalleryNameAndImageName(@PathVariable String galleryName,
                                                                               @PathVariable String fileName) throws IOException {
         File file = fileService.findFileByGalleryNameAndFileName(galleryName, fileName);
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(IOUtils.toByteArray(file.toURI()));
     }
 
     @GetMapping("/{galleryName}/getimages")
-    public ResponseEntity<List<ImageResponseDto>> getImagesByGalleryName(@PathVariable String galleryName) {
+    public ResponseEntity<List<ImageResponseDto>> getImagesOfGallery(@PathVariable String galleryName) {
         Gallery gallery = galleryService.findByName(galleryName);
         List<ImageResponseDto> response = new ArrayList<>();
 
@@ -50,6 +51,20 @@ public class UploadsController {
             response.add(new ImageResponseDto(image.getId(), image.getName()));
         }
 
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/galleries")
+    public ResponseEntity<List<GalleryGetAllResponseDto>> getAllGalleries() throws IOException {
+        List<Gallery> galleries = galleryService.findAllGalleries();
+        List<GalleryGetAllResponseDto> response = new ArrayList<>();
+        for (Gallery gallery: galleries) {
+            Image image = imageService.findImageById(gallery.getThumbnailId());
+            response.add(new GalleryGetAllResponseDto(
+                    gallery.getId(),
+                    gallery.getName(),
+                    "http://localhost:8080/uploads/" + gallery.getName() + "/" + image.getName()));
+        }
         return ResponseEntity.ok(response);
     }
 

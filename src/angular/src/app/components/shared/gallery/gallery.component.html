@@ -1,14 +1,12 @@
 <div class="container">
 
-  <p>{{ galleryName }}</p>
-  <div class="content">
+  <p class="gal-title">{{ galleryName }}</p>
 
-    <div *ngFor="let image of images">
-      <img src="http://localhost:8080/uploads/{{galleryName}}/{{image.name}}">
-    </div>
-
-
-  </div>
+  <ngx-masonry [options]="{ gutter: 5 }" [ordered]="true">
+    <a ngxMasonryItem class="masonry-item" *ngFor="let image of images" href="http://localhost:8080/uploads/{{galleryName}}/{{image.name}}">
+      <img class="test" src="http://localhost:8080/uploads/{{galleryName}}/{{image.name}}">
+    </a>
+  </ngx-masonry>
 
 
 

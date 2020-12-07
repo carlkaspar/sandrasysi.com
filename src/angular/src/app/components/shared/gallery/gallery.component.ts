@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {GalleryService} from "../../../_services/gallery.service";
 import {ImageService} from "../../../_services/image.service";
 import {Image} from "../../../_models/gallery/image";
 import {ActivatedRoute, Route} from "@angular/router";
-import {Gallery} from "../../../_models/gallery/gallery";
 
 @Component({
   selector: 'app-gallery',
@@ -11,6 +10,7 @@ import {Gallery} from "../../../_models/gallery/gallery";
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit {
+  section: ElementRef<HTMLElement>;
 
   images: Image[] = [];
   galleryName: string;
@@ -32,5 +32,6 @@ export class GalleryComponent implements OnInit {
       }
     );
   }
+
 
 }
