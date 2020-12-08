@@ -10,4 +10,6 @@ public interface GalleryRepository extends JpaRepository<Gallery, Long> {
     Optional<Gallery> findById(Long id);
 
     Optional<Gallery> findByName(String name);
+
+    void deleteById(Long id);
 }

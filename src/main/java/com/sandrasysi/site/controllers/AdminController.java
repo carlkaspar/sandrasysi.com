@@ -56,4 +56,11 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/gallery/delete")
+    public ResponseEntity<String> deleteGallery(@RequestParam(value = "id") Long id) {
+        Gallery gallery = galleryService.findById(id);
+        galleryService.deleteById(id);
+        return ResponseEntity.ok("Gallery deleted");
+    }
+
 }

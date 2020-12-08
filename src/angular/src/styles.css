@@ -167,6 +167,19 @@ img {
   margin: 2.5px;
 }
 
+.gallery-item {
+  position: relative;
+}
+
+.btn-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
+}
+
+.masonry-item
+
 
 .blur-up {
   -webkit-filter: blur(2px);

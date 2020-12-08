@@ -3,12 +3,27 @@
     <ngx-masonry [options]="{ gutter: 0 }" [ordered]="true">
 
       <div ngxMasonryItem class="masonry-item" *ngFor="let gallery of galleries">
-        <a (click)="goToGalleryPage(gallery.name)">
-          <img [src]="gallery.thumbnailImageUrl">
-        </a>
+
+        <div class="gallery-item">
+          <a (click)="goToGalleryPage(gallery.name)">
+            <img [src]="gallery.thumbnailImageUrl">
+          </a>
+
+          <a (click)="openDeleteModal(gallery)">
+            delete
+          </a>
+
+
+
+
+        </div>
+
       </div>
 
     </ngx-masonry>
 
 
 </div>
+
+
+

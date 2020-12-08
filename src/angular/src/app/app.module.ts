@@ -20,6 +20,8 @@ import { ImageCropperModule } from "ngx-image-cropper";
 import {MasonryGalleryModule} from "ngx-masonry-gallery";
 import {NgxMasonryModule} from "ngx-masonry";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteGalleryComponent } from './components/modals/delete-gallery/delete-gallery.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FooterComponent,
     GalleryFormComponent,
     PhotoGridComponent,
-    GalleryComponent
+    GalleryComponent,
+    DeleteGalleryComponent
   ],
     imports: [
         BrowserModule,
@@ -44,9 +47,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         NgxDropzoneModule,
         ImageCropperModule,
         NgxMasonryModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgbModule
     ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteGalleryComponent]
 })
 export class AppModule { }

@@ -36,4 +36,8 @@ public class GalleryService {
         }
         return optionalGallery.get();
     }
+
+    public void deleteById(Long id) {
+        galleryRepository.deleteById(id);
+    }
 }

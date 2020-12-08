@@ -10,6 +10,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {Router} from "@angular/router";
 import {DomService} from "../../../_services/dom.service";
 import {IMasonryGalleryImage} from "ngx-masonry-gallery";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {DeleteGalleryComponent} from "../../modals/delete-gallery/delete-gallery.component";
 
 
 
@@ -32,7 +34,7 @@ export class PhotoGridComponent implements OnInit {
     private imageService: ImageService,
     private domSanitizer: DomSanitizer,
     private router: Router,
-    private domService: DomService
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -52,4 +54,9 @@ export class PhotoGridComponent implements OnInit {
     this.router.navigate(['galerii/' + galleryName]);
   }
 
+
+  openDeleteModal(gallery: Gallery) {
+    const modalRef = this.modalService.open(DeleteGalleryComponent);
+    modalRef.componentInstance.gallery = gallery;
+  }
 }

@@ -41,4 +41,9 @@ export class GalleryService {
         )
       )
   }
+
+  delete(formData): Observable<any> {
+    const url = `${ADMIN_API}/gallery/delete`;
+    return this.httpClient.post(url, formData, {headers: headers});
+  }
 }
