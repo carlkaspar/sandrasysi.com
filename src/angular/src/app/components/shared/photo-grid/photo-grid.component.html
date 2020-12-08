@@ -1,6 +1,6 @@
 <div class="sysi-container">
 
-    <ngx-masonry [options]="{ gutter: 5 }" [ordered]="true">
+    <ngx-masonry [options]="{ gutter: 0 }" [ordered]="true">
 
       <div ngxMasonryItem class="masonry-item" *ngFor="let gallery of galleries">
         <a (click)="goToGalleryPage(gallery.name)">

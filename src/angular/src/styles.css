@@ -164,7 +164,7 @@ img {
 
 .masonry-item {
   width: calc(50% - 5px);
-  margin-bottom: 5px;
+  margin: 2.5px;
 }
 
 
@@ -207,7 +207,6 @@ img {
   flex-direction: column-reverse;
   justify-content: center;
   margin: 0 10%;
-  visibility: hidden;
 }
 
 
@@ -464,8 +463,17 @@ img {
 
 
   .masonry-item {
-    width: calc(100% / 3 - 10px/3);
-    margin-bottom: 5px;
+    width: calc(100% / 3 - 10px);
+    margin: 5px;
+    overflow: hidden;
+  }
+
+  .masonry-item img {
+    transition: transform .3s ease;
+  }
+
+  .masonry-item img:hover {
+    transform: scale(1.05);
   }
 
 
