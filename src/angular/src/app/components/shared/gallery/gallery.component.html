@@ -1,9 +1,9 @@
-<div class="container">
+<div class="sysi-container">
 
   <p class="gal-title">{{ galleryName }}</p>
 
-  <ngx-masonry [options]="{ gutter: 5 }" [ordered]="true">
-    <a ngxMasonryItem class="masonry-item" *ngFor="let image of images" href="http://localhost:8080/uploads/{{galleryName}}/{{image.name}}">
+  <ngx-masonry [options]="{ gutter: 5, percentPosition: true }" [ordered]="true">
+    <a ngxMasonryItem class="masonry-item" *ngFor="let image of images" href="http://localhost:8080/uploads/{{galleryName}}/{{image.name}}" data-fancybox="gallery">
       <img class="test" src="http://localhost:8080/uploads/{{galleryName}}/{{image.name}}">
     </a>
   </ngx-masonry>
