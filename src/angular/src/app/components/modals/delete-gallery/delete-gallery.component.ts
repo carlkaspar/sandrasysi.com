@@ -14,7 +14,8 @@ export class DeleteGalleryComponent implements OnInit {
 
   constructor(
     private galleryService: GalleryService,
-    private ngbActiveModal: NgbActiveModal
+    private ngbActiveModal: NgbActiveModal,
+    private router: Router
   ) {
   }
 
@@ -33,8 +34,8 @@ export class DeleteGalleryComponent implements OnInit {
       }
     );
 
-    this.ngbActiveModal.close();
 
+    this.ngbActiveModal.close(this.gallery);
 
   }
 }

@@ -50,6 +50,8 @@ export class PhotoGridComponent implements OnInit {
 
 
 
+
+
   goToGalleryPage(galleryName: string) {
     this.router.navigate(['galerii/' + galleryName]);
   }
@@ -58,5 +60,12 @@ export class PhotoGridComponent implements OnInit {
   openDeleteModal(gallery: Gallery) {
     const modalRef = this.modalService.open(DeleteGalleryComponent);
     modalRef.componentInstance.gallery = gallery;
+    modalRef.closed.subscribe(result => {
+      this.galleries.forEach((item, index) => {
+        if(item === result) this.galleries.splice(index, 1);
+      })
+    })
   }
+
+
 }

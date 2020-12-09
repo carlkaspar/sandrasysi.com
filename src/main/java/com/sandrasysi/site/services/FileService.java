@@ -9,10 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -85,5 +85,13 @@ public class FileService {
         String relativePath = galleryService.findByName(galleryName).getRelativePath() + "\\" + fileName;
         Image image = imageService.findImageByNameAndRelativePath(fileName, relativePath);
         return findFileById(image.getId());
+    }
+
+    public void deleteGallery(Gallery gallery) throws IOException {
+        Path directoryToBeDeleted = Paths.get(gallery.getRelativePath());
+        Files.walk(directoryToBeDeleted)
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
     }
 }
