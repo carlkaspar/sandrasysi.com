@@ -27,6 +27,4 @@ public class Image {
     @Column(name = "relative_path")
     private String relativePath;
 
-    public Image(String originalFilename, String toString) {
-    }
 }

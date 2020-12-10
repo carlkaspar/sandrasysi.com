@@ -1,5 +1,6 @@
 package com.sandrasysi.site.services;
 
+import com.sandrasysi.site.models.Gallery;
 import com.sandrasysi.site.models.Image;
 import com.sandrasysi.site.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,20 @@ public class ImageService {
         }
 
         return images;
+    }
+
+    public void deleteImagesOfGallery(Gallery gallery) {
+        String[] imageIds = gallery.getGalleryImageIds().split(",");
+        for (String id: imageIds) {
+            deleteImageById(Long.parseLong(id.trim()));
+        }
+    }
+
+    private void deleteImageById(Long id) {
+        Optional<Image> optionalImage = imageRepository.findImageById(id);
+        if (!optionalImage.isPresent()){
+            throw new RuntimeException("Image not present");
+        }
+        imageRepository.delete(optionalImage.get());
     }
 }

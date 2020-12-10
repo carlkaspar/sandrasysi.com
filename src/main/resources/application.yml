@@ -19,5 +19,5 @@ spring:
     show-sql: true
     generate-ddl: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
 client-hosting: http://localhost:4200

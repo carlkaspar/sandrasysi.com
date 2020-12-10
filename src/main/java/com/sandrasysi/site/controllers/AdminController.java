@@ -62,6 +62,7 @@ public class AdminController {
             Gallery gallery = galleryService.findById(id);
             fileService.deleteGallery(gallery);
             galleryService.deleteById(id);
+            imageService.deleteImagesOfGallery(gallery);
             return ResponseEntity.ok("Gallery deleted");
         } catch (IOException e) {
             throw new RuntimeException(e);
