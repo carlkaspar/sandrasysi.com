@@ -94,4 +94,8 @@ public class FileService {
                 .map(Path::toFile)
                 .forEach(File::delete);
     }
+
+    public void deleteImage(Image image) throws IOException {
+        Files.delete(Paths.get(image.getRelativePath()));
+    }
 }

@@ -51,11 +51,13 @@ public class ImageService {
         }
     }
 
-    private void deleteImageById(Long id) {
+    public void deleteImageById(Long id) {
         Optional<Image> optionalImage = imageRepository.findImageById(id);
         if (!optionalImage.isPresent()){
             throw new RuntimeException("Image not present");
         }
         imageRepository.delete(optionalImage.get());
     }
+
+
 }

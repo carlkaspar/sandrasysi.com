@@ -68,4 +68,10 @@ public class ContentController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/gallery/getByName/{name}")
+    public ResponseEntity<Gallery> getGalleryByName(@PathVariable String name) {
+        Gallery gallery = galleryService.findByName(name);
+        return ResponseEntity.ok(gallery);
+    }
+
 }

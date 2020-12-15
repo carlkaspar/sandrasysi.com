@@ -1,11 +1,23 @@
 <div class="sysi-container">
 
-  <p class="gal-title">{{ galleryName }}</p>
+  <p class="gal-title">{{ gallery.name }}</p>
 
   <ngx-masonry [options]="{ gutter: 0, percentPosition: true }" [ordered]="true">
-    <a ngxMasonryItem class="masonry-item" *ngFor="let image of images" href="http://localhost:8080/uploads/{{galleryName}}/{{image.name}}" data-fancybox="gallery">
-      <img class="test" src="http://localhost:8080/uploads/{{galleryName}}/{{image.name}}">
-    </a>
+
+    <div ngxMasonryItem class="masonry-item" *ngFor="let image of images">
+
+      <div class="gallery-item">
+        <a href="http://localhost:8080/uploads/{{gallery.name}}/{{image.name}}" data-fancybox="gallery">
+          <img class="test" src="http://localhost:8080/uploads/{{gallery.name}}/{{image.name}}">
+        </a>
+
+        <a (click)="openDeleteModal(image, gallery)">
+          delete
+        </a>
+      </div>
+
+    </div>
+
   </ngx-masonry>
 
 

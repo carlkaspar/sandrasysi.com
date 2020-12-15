@@ -1,26 +1,18 @@
 package com.sandrasysi.site.controllers;
 
-import com.sandrasysi.site.dto.GalleryGetAllResponseDto;
-import com.sandrasysi.site.dto.GalleryGetOneResponseDto;
 import com.sandrasysi.site.dto.GalleryUploadRequestDto;
-import com.sandrasysi.site.dto.ImageResponseDto;
 import com.sandrasysi.site.models.Gallery;
 import com.sandrasysi.site.models.Image;
 import com.sandrasysi.site.services.FileService;
 import com.sandrasysi.site.services.GalleryService;
 import com.sandrasysi.site.services.ImageService;
-import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -66,6 +58,20 @@ public class AdminController {
             return ResponseEntity.ok("Gallery deleted");
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/image/delete")
+    public ResponseEntity<String> deleteImage(@RequestParam(value = "id") Long id, @RequestParam(value = "galId") Long galleryId) {
+        try {
+            Image image = imageService.findImageById(id);
+            Gallery gallery = galleryService.findById(galleryId);
+            fileService.deleteImage(image);
+            imageService.deleteImageById(image.getId());
+            galleryService.removeImageFromGallery(image, gallery);
+            return ResponseEntity.ok("Image deleted!");
+        } catch (IOException e) {
+           throw new RuntimeException(e);
         }
     }
 

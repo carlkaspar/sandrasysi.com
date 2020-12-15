@@ -8,6 +8,7 @@ import {Image} from "../_models/gallery/image";
 
 
 const CONTENT_API = `${environment.apiUrl}/uploads`;
+const ADMIN_API = `${environment.apiUrl}/admin`
 
 const headers = new HttpHeaders()
   .append('Authorization', `Bearer ${localStorage.getItem("token")}`);
@@ -33,5 +34,10 @@ export class ImageService {
         )
       )
     )
+  }
+
+  delete(formData: FormData): Observable<any> {
+    const apiUrl = `${ADMIN_API}/image/delete`;
+    return this.http.post(apiUrl, formData, {headers: headers})
   }
 }

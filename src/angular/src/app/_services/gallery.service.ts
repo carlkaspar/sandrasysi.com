@@ -46,4 +46,14 @@ export class GalleryService {
     const url = `${ADMIN_API}/gallery/delete`;
     return this.httpClient.post(url, formData, {headers: headers});
   }
+
+  getGalleryByName(galleryName: string): Observable<any> {
+    const url = `${CONTENT_API}/gallery/getByName/${galleryName}`;
+    return this.httpClient.get(url, {headers: headers})
+      .pipe(
+        map((item: any) =>
+          new Gallery(item.id, item.name)
+        )
+      )
+  }
 }

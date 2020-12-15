@@ -22,6 +22,7 @@ import {NgxMasonryModule} from "ngx-masonry";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteGalleryComponent } from './components/modals/delete-gallery/delete-gallery.component';
+import { DeleteImageComponent } from './components/modals/delete-image/delete-image.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DeleteGalleryComponent } from './components/modals/delete-gallery/delet
     GalleryFormComponent,
     PhotoGridComponent,
     GalleryComponent,
-    DeleteGalleryComponent
+    DeleteGalleryComponent,
+    DeleteImageComponent
   ],
     imports: [
         BrowserModule,
@@ -52,6 +54,6 @@ import { DeleteGalleryComponent } from './components/modals/delete-gallery/delet
     ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteGalleryComponent]
+  entryComponents: [DeleteGalleryComponent, DeleteImageComponent]
 })
 export class AppModule { }

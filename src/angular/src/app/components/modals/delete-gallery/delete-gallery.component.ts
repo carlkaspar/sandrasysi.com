@@ -14,8 +14,7 @@ export class DeleteGalleryComponent implements OnInit {
 
   constructor(
     private galleryService: GalleryService,
-    private ngbActiveModal: NgbActiveModal,
-    private router: Router
+    private ngbActiveModal: NgbActiveModal
   ) {
   }
 
@@ -24,7 +23,7 @@ export class DeleteGalleryComponent implements OnInit {
 
   deleteGallery() {
     const formData = new FormData();
-    formData.append("id", this.gallery.id)
+    formData.append("id", this.gallery.id);
     this.galleryService.delete(formData).subscribe(
       response => {
         console.log(response)
